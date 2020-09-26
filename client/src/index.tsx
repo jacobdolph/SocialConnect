@@ -4,10 +4,13 @@ import "./app/layout/styles.css";
 import App from "./app/layout/App";
 import "semantic-ui-css/semantic.min.css";
 import { BrowserRouter } from "react-router-dom";
+import ScrollToTop from "./app/layout/scrollToTop";
 
 ReactDOM.render(
   <BrowserRouter>
-    <App />
+    <ScrollToTop>
+      <App />
+    </ScrollToTop>
   </BrowserRouter>,
   document.getElementById("root")
 );

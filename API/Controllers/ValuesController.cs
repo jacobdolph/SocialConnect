@@ -33,6 +33,12 @@ namespace API.Controllers
         {
 
             var value = await _context.Values.FindAsync(id);
+
+            if (value == null)
+            {
+                return NotFound();
+            }
+
             return Ok(value);
         }
 

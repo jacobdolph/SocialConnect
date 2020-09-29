@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from "axios";
+import { toast } from "react-toastify";
 import { history } from "../..";
 import { IActivity } from "../models/activity";
 
@@ -16,6 +17,9 @@ axios.interceptors.response.use(undefined, (error) => {
     data.errors.hasOwnProperty("id")
   ) {
     history.push("/notfound");
+  }
+  if (status === 500) {
+    toast.error("Server error - check the terminal for more info!");
   }
 });
 

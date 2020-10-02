@@ -3,10 +3,15 @@ import ReactDOM from "react-dom";
 import "./app/layout/styles.css";
 import App from "./app/layout/App";
 import "semantic-ui-css/semantic.min.css";
+import "react-toastify/dist/ReactToastify.min.css";
+import "react-widgets/dist/css/react-widgets.css";
+import dateFnsLocalizer from "react-widgets-date-fns";
+// import DateTimePicker from "react-widgets/lib/DateTimePicker";
 import { Router } from "react-router-dom";
 import { createBrowserHistory } from "history";
 import ScrollToTop from "./app/layout/scrollToTop";
-import "react-toastify/dist/ReactToastify.min.css";
+
+dateFnsLocalizer();
 
 export const history = createBrowserHistory();
 

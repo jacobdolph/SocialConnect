@@ -19,6 +19,8 @@ const DateInput: React.FC<IProps> = ({
     <Form.Field error={touched && !!error} width={width}>
       <DateTimePicker
         placeholder={placeholder}
+        onBlur={input.onBlur}
+        onKeyDown={(e) => e.preventDefault()}
         date={date}
         time={time}
         value={input.value || null}

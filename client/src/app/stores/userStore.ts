@@ -16,6 +16,17 @@ export default class UserStore {
     return !!this.user;
   }
 
+  @action getUser = async ()=>{
+    try{
+      const user = await agent.User.current();
+      runInAction(()=>{
+        this.user = user;
+      })
+    }catch (error){
+      console.log(error)
+    }
+  }
+
   @action login = async (values: IUserFormValues) => {
     try {
       const user = await agent.User.login(values);

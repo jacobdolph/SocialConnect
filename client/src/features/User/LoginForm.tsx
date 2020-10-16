@@ -3,6 +3,7 @@ import React, { useContext } from "react";
 import { Form as FinalForm, Field } from "react-final-form";
 import { combineValidators, isRequired } from "revalidate";
 import { Button, Form, Header, Label } from "semantic-ui-react";
+import ErrorMessage from "../../app/common/form/ErrorMessage";
 import TextInput from "../../app/common/form/TextInput";
 import { IUserFormValues } from "../../app/models/user";
 import { RootStoreContext } from "../../app/stores/rootStore";
@@ -32,7 +33,7 @@ const LoginForm = () => {
         pristine,
         dirtySinceLastSubmit,
       }) => (
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit} error>
           <Header as='h2' content='Login to Social Connect' color='teal' textAlign='center' />
           <Field
             name="email"
@@ -47,7 +48,7 @@ const LoginForm = () => {
             type="password"
           />
           {submitError && !dirtySinceLastSubmit && (
-            <Label color="red" basic content={submitError.statusText} />
+           <ErrorMessage error={submitError} text='Invalid email or password'/>
           )}
           <br />
           <Button

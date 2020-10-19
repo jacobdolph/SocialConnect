@@ -10,16 +10,18 @@ import { RootStoreContext } from "../../app/stores/rootStore";
 
 const validate = combineValidators({
   email: isRequired("email"),
+ username: isRequired("username"),
+  displayname: isRequired("displayname"),
   password: isRequired("password"),
 });
 
-const LoginForm = () => {
+const RegisterForm = () => {
   const rootStore = useContext(RootStoreContext);
-  const { login } = rootStore.userStore;
+  const { register } = rootStore.userStore;
   return (
     <FinalForm
       onSubmit={(values: IUserFormValues) =>
-        login(values).catch((error) => ({
+        register(values).catch((error) => ({
           [FORM_ERROR]: error,
         }))
       }
@@ -34,7 +36,17 @@ const LoginForm = () => {
         dirtySinceLastSubmit,
       }) => (
         <Form onSubmit={handleSubmit} error>
-          <Header as='h2' content='Login to Social Connect' color='teal' textAlign='center' />
+          <Header as='h2' content='Sign up for Social Connect' color='teal' textAlign='center' />
+          <Field
+            name="username"
+            component={TextInput}
+            placeholder="Username"
+          />
+          <Field
+            name="displayname"
+            component={TextInput}
+            placeholder="Displayname"
+          />
           <Field
             name="email"
             type="email"
@@ -48,7 +60,7 @@ const LoginForm = () => {
             type="password"
           />
           {submitError && !dirtySinceLastSubmit && (
-           <ErrorMessage error={submitError} text='Invalid email or password'/>
+           <ErrorMessage error={submitError} />
           )}
           <br />
           <Button
@@ -56,7 +68,7 @@ const LoginForm = () => {
             loading={submitting}
             disabled={(invalid && !dirtySinceLastSubmit) || pristine}
             color='teal'
-            content="Login"
+            content="Register"
           />
         </Form>
       )}
@@ -64,4 +76,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default RegisterForm;

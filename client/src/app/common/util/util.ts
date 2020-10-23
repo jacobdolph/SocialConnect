@@ -1,4 +1,3 @@
-import userEvent from "@testing-library/user-event";
 import { IActivity, IAttendee } from "../../models/activity";
 import { IUser } from "../../models/user";
 

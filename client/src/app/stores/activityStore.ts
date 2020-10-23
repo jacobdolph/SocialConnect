@@ -3,7 +3,7 @@ import { SyntheticEvent } from "react";
 import { toast } from "react-toastify";
 import { history } from "../..";
 import agent from "../API/agent";
-import { setActivityProps } from "../common/util/util";
+import { createAttendee, setActivityProps } from "../common/util/util";
 import { IActivity } from "../models/activity";
 import { RootStore } from "./rootStore";
 
@@ -150,6 +150,26 @@ export default class ActivityStore {
       });
 
       console.log(error);
+    }
+  };
+
+  @action attendActivity = () => {
+    const attendee = createAttendee(this.rootStore.userStore.user!);
+    if (this.activity) {
+      this.activity.attendees.push(attendee);
+      this.activity.isGoing = true;
+      this.activityRegistry.set(this.activity.id, this.activity);
+    }
+  };
+
+  @action cancelActtendence = () => {
+    if (this.activity) {
+      this.activity.attendees = this.activity.attendees.filter(
+        (a) => a.username !== this.rootStore.userStore.user!.username
+      );
+      this.activity.isGoing = false;
+
+      this.activityRegistry.set(this.activity.id, this.activity);
     }
   };
 }

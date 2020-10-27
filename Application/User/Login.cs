@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -30,7 +31,7 @@ namespace Application.User
 
         public class Handler : IRequestHandler<Query, User>
         {
-            private readonly DataContext _context;
+            // private readonly DataContext _context;
             private readonly UserManager<AppUser> _userManager;
             private readonly SignInManager<AppUser> _signInManager;
             private readonly IJWTGenerator _jWTGenerator;
@@ -62,7 +63,7 @@ namespace Application.User
                         DisplayName = user.DisplayName,
                         Token = _jWTGenerator.CreateToken(user),
                         Username = user.UserName,
-                        Image = null
+                        Image = user.Photos.FirstOrDefault(x => x.IsMain)?.Url
                     };
                 }
                 throw new RestException(HttpStatusCode.Unauthorized);

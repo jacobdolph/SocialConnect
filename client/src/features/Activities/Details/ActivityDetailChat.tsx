@@ -40,8 +40,8 @@ const ActivityDetailChat = () => {
               <Comment key={comment.id}>
                 <Comment.Avatar src={comment.image || "/assets/user.png"} />
                 <Comment.Content>
-                  <Comment.Author as={Link} to={`/profile/${comment.username}`}>
-                    {comment.displayname}
+                  <Comment.Author as={Link} to={`/profile/${comment.userName}`}>
+                    {comment.displayName}
                   </Comment.Author>
                   <Comment.Metadata>
                     <div>{comment.createdAt}</div>
@@ -53,7 +53,7 @@ const ActivityDetailChat = () => {
           <FinalForm
             onSubmit={addComment}
             render={({ handleSubmit, submitting, form }) => (
-              <Form onSubmit={() => handleSubmit()!.then(() => form.reset)}>
+              <Form onSubmit={() => handleSubmit()!.then(() => form.reset())}>
                 <Field
                   name="body"
                   component={TextAreaInput}

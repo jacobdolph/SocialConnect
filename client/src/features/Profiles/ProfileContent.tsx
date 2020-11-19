@@ -4,6 +4,10 @@ import ProfileDescription from "./ProfileDescription";
 import ProfileFollowings from "./ProfileFollowings";
 import ProfilePhotos from "./ProfilePhotos";
 
+interface IProps {
+  setActiveTab: (activeIdex: any) => void;
+}
+
 const panes = [
   { menuItem: "About", render: () => <ProfileDescription /> },
   { menuItem: "Photos", render: () => <ProfilePhotos /> },
@@ -21,12 +25,15 @@ const panes = [
   },
 ];
 
-const ProfileContent = () => {
+const ProfileContent: React.FC<IProps> = ({ setActiveTab }) => {
   return (
     <Tab
       menu={{ fluid: true, vertical: true }}
       menuPosition="right"
       panes={panes}
+      onTabChange={(e, data) => {
+        setActiveTab(data.activeIndex);
+      }}
     />
   );
 };

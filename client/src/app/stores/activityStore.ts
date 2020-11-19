@@ -28,7 +28,7 @@ export default class ActivityStore {
 
   @action createHubConnection = () => {
     this.hubConnection = new HubConnectionBuilder()
-      .withUrl("http://localhost:5000/chat", {
+      .withUrl("http://localhost:5000/chat/", {
         accessTokenFactory: () => this.rootStore.commonStore.token!,
       })
       .configureLogging(LogLevel.Information)

@@ -16,8 +16,8 @@ export interface IComment {
   id: string;
   createdAt: Date;
   body: string;
-  userName: string;
-  displayName: string;
+  username: string;
+  displayname: string;
   image: string;
 }
 

@@ -21,6 +21,7 @@ const ActivityDetailChat = () => {
       stopHubConnection();
     };
   }, [createHubConnection, stopHubConnection]);
+
   return (
     <Fragment>
       <Segment
@@ -40,8 +41,8 @@ const ActivityDetailChat = () => {
               <Comment key={comment.id}>
                 <Comment.Avatar src={comment.image || "/assets/user.png"} />
                 <Comment.Content>
-                  <Comment.Author as={Link} to={`/profile/${comment.userName}`}>
-                    {comment.displayName}
+                  <Comment.Author as={Link} to={`/profile/${comment.username}`}>
+                    {comment.displayname}
                   </Comment.Author>
                   <Comment.Metadata>
                     <div>{comment.createdAt}</div>

@@ -6,9 +6,10 @@ import LoginForm from "../User/LoginForm";
 import RegisterForm from "../User/RegisterForm";
 
 const HomePage = () => {
+  const token = window.localStorage.getItem("jwt");
   const rootStore = useContext(RootStoreContext);
   const { isLoggedIn, user } = rootStore.userStore;
-  const {openModal} = rootStore.modalStore
+  const { openModal } = rootStore.modalStore;
 
   return (
     <Segment inverted textAlign="center" vertical className="masthead">
@@ -22,7 +23,7 @@ const HomePage = () => {
           />
           Social Connect
         </Header>
-        {isLoggedIn && user ? (
+        {isLoggedIn && user && token ? (
           <Fragment>
             <Header
               as="h2"
@@ -36,10 +37,18 @@ const HomePage = () => {
         ) : (
           <Fragment>
             <Header as="h2" inverted content="Welcome to Reactivities" />
-            <Button onClick={()=>openModal(<LoginForm/>)} size="huge" inverted>
+            <Button
+              onClick={() => openModal(<LoginForm />)}
+              size="huge"
+              inverted
+            >
               Login
             </Button>
-            <Button onClick={()=>openModal(<RegisterForm/>)} size="huge" inverted>
+            <Button
+              onClick={() => openModal(<RegisterForm />)}
+              size="huge"
+              inverted
+            >
               Register
             </Button>
           </Fragment>

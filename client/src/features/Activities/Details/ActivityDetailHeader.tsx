@@ -33,7 +33,7 @@ const ActivityDetailHeader: React.FC<{ activity: IActivity }> = ({
     <Segment.Group>
       <Segment basic attached="top" style={{ padding: "0" }}>
         <Image
-          src={`/assets/categoryImages/${activity.category}.jpg`}
+          src={`/assets/categoryImages/${activity.category.toLowerCase()}.jpg`}
           fluid
           style={activityImageStyle}
         />

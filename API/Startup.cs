@@ -42,7 +42,7 @@ namespace API
             services.AddDbContext<DataContext>(opt =>
                         {
                             opt.UseLazyLoadingProxies();
-                            opt.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
+                            opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
                         });
             ConfigureServices(services);
         }
@@ -51,7 +51,7 @@ namespace API
             services.AddDbContext<DataContext>(opt =>
                         {
                             opt.UseLazyLoadingProxies();
-                            opt.UseMySql(Configuration.GetConnectionString("DefaultConnection"));
+                            opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
                         });
             ConfigureServices(services);
         }
@@ -145,8 +145,26 @@ namespace API
 
 
             }
-
+            else
+            {
+                app.UseHsts();
+            }
+            app.UseXContentTypeOptions();
+            app.UseReferrerPolicy(opt => opt.NoReferrer());
+            app.UseXXssProtection(opt => opt.EnabledWithBlockMode());
+            app.UseXfo(opt => opt.Deny());
+            app.UseCsp(opt => opt
+                        .BlockAllMixedContent()
+                        .StyleSources(s => s.Self().CustomSources("https://fonts.googleapis.com"))
+                        .FontSources(s => s.Self().CustomSources("https://fonts.gstatic.com", "data:"))
+                        .FormActions(s => s.Self())
+                        .FrameAncestors(s => s.Self())
+                        .ImageSources(s => s.Self().CustomSources("https://res.cloudinary.com", "blob:", "data:"))
+                        .ScriptSources(s => s.Self().CustomSources("sha256-lQDx20KTCYDfBgvQmGSs0QylwYz+vPH+zIUsrlYVxYk=", "sha256-eE1k/Cs1U0Li9/ihPPQ7jKIGDvR8fYw65VJw+txfifw="))
+            );
             // app.UseHttpsRedirection();
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
 
             app.UseRouting();
             app.UseCors("CorsPolicy");
@@ -159,6 +177,7 @@ namespace API
             {
                 endpoints.MapControllers();
                 endpoints.MapHub<ChatHub>("/chat");
+                endpoints.MapFallbackToController("Index", "Fallback");
             });
         }
     }
